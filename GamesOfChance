@@ -1,0 +1,124 @@
+import random
+
+money = 100
+
+
+def flip_coin(guess, bet):
+    if bet < 0:
+        print('Your bet should be above 0')
+        return 0
+
+    outcome = ''
+    print('Let\'s flip a coin! Your guess: ' + guess)
+    chance = random.randint(1, 2)
+    if chance == 1:
+        outcome = 'Heads'
+    else:
+        outcome = 'Tails'
+    print(outcome)
+
+    guess = guess.title()
+    if guess == outcome:
+        print('You win ${}!'.format(bet))
+        return bet
+    else:
+        print('You lost ${}.'.format(bet))
+        return -bet
+
+
+def cho_han(guess, bet):
+    if bet < 0:
+        print('Your bet should be above 0')
+        return 0
+
+    print('Let\'s play Cho Han! Your guess: ' + guess)
+    dice1roll = random.randint(1, 6)
+    dice2roll = random.randint(1, 6)
+    dice_sum = dice1roll + dice2roll
+    print('A {} and a {} were rolled.'.format(dice1roll, dice2roll))
+
+    outcome = ''
+    if dice_sum % 2 == 1:
+        outcome = 'Odd'
+        print('The sum is odd.')
+    else:
+        outcome = 'Even'
+        print('The sum is even.')
+
+    guess = guess.title()
+    if guess == outcome:
+        print('You win ${}!'.format(bet))
+        return bet
+    else:
+        print('You lost ${}.'.format(bet))
+        return -bet
+
+
+# 1 is an ace and 11 is a face card
+def highest_card(bet):
+    if bet < 0:
+        print('Your bet should be above 0')
+        return 0
+
+    print('Let\'s play a game of cards!')
+    player1choice = random.randint(1, 11)
+    player2choice = random.randint(1, 11)
+
+    print('Your pulled card has a value of ' + str(player1choice))
+    print('The computer\'s pulled card has a value of ' + str(player2choice))
+    if player1choice == player2choice:
+        print('It\'s a tie! No money was gained or lost.')
+        return 0
+    elif player1choice > player2choice:
+        print('You win ${}!'.format(bet))
+        return bet
+    else:
+        print('You lost ${}.'.format(bet))
+        return -bet
+
+
+def roulette(guess, bet):
+    if bet < 0:
+        print('Your bet should be above 0')
+        return 0
+
+    print('Let\'s play roulette!')
+    print('Your guess: ' + str(guess))
+    num = random.randint(0, 37)
+    if num == 37:
+        print('Landed on 00.')
+    else:
+        print('Landed on ' + str(num))
+
+    # odd or even
+    if guess == 'Odd' and num % 2 == 1 and num != 37:
+        print('You correctly guessed an odd number! You win ${}!'.format(bet))
+        return bet
+    elif guess == 'Even' and num % 2 == 0 and num != 0:
+        print('You correctly guessed an even number! You win ${}!'.format(bet))
+        return bet
+    # direct comparison
+    elif guess == num:
+        print('You guessed the correct number! You win ${}!'.format(bet * 35))
+        return bet * 35
+    # did not guess anything correctly
+    else:
+        print('You guessed incorrectly. You lost ${}.'.format(bet))
+        return -bet
+
+
+bet_flip_coin = flip_coin('heads', 50)
+money += bet_flip_coin
+print('You now have ${}.'.format(money) + '\n')
+
+bet_cho_han = cho_han('even', 50)
+money += bet_cho_han
+print('You now have ${}.'.format(money) + '\n')
+
+bet_highest_card = highest_card(100)
+money += bet_highest_card
+print('You now have ${}.'.format(money) + '\n')
+
+bet_roulette = roulette(25, 25)
+money += bet_roulette
+print('You now have ${}.'.format(money) + '\n')
